@@ -1,21 +1,37 @@
-console.log('app anexado')
+
 let data = ''
 let button = document.getElementById('fetch')
 let sistema = document.getElementById('sistema')
-let URLactual = window.location;
+let sistemaAll = document.querySelectorAll('#sistema')
+let info = document.getElementById('info')
+
+
+
 button.addEventListener('click',()=>{
-    buscardatos(sistema)
-    //(data===''?'loading':'full')
+    info.innerHTML += ` <p>📅 - Track: </p><strong id="sistema"> </strong>`   
 })
 
 async function buscardatos(elemento){
-    
     try {
         let data = await fetch('/sistema')
-        let resp = await data.json()
-        console.log(resp)
-        elemento.innerText=resp.sistema
+        let resp = await data.json()      
+        plusInfoList(sistemaAll,Object.values(resp))
     } catch (error) {
-        
+        elemento.innerText='🚧Error, vuelva a intentar'
     }
 }
+
+
+function plusInfoList(nodeList,arr){
+    let x = 0
+    Array.prototype.forEach.call(nodeList , function (item) {
+        plusMensaje(item,arr[x])        
+        x++;
+      });
+}
+
+function plusMensaje(element, message){
+    element.innerText+= ` --${message}`.toUpperCase()
+}
+
+buscardatos(sistema)    
