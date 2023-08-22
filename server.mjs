@@ -17,13 +17,11 @@ const PORT  = process.env.PORT ?? 8080
 
 app.get('/sistema',(req,res)=>{
     res.send({
-        sistema:'unix23'
+        sistema:sistemaOperativo
     })
 })
-
 app.get('/',(req,res)=>{
-    res.sendFile( path.join(__dirname+'views/index.html'))    
-    
+    res.sendFile( path.join(__dirname+'views/index.html'))       
 })
 
 
